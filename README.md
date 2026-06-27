@@ -1,57 +1,49 @@
 # EduPractice
 
-EduPractice is an Arabic web application for educational supervision and field-training management. It manages students, supervisors, educational points, regions, specializations, sections, grades, reports, financial allowances, announcements, and audit logs.
+EduPractice is an Arabic Firebase-first web app for educational supervision and field-training management.
 
-## Stack
+## Features
 
-- React + Vite
-- Firebase Authentication
-- Cloud Firestore
-- Firebase Hosting
-- Tailwind CSS
-- Recharts
-- XLSX import/export
-
-The current build is Firebase-first. The old local Express/SQLite server is kept only as legacy code and is not required for normal use.
+- Firebase Authentication with role-based access: official, supervisor, student.
+- Cloud Firestore data storage.
+- Officials can manage students, supervisors, educational points, regions, specializations, sections, and system settings.
+- Supervisors can view assigned students and enter grades.
+- Students can view their assignment and grades when enabled.
+- Reports, audit logs, announcements, and Firebase Hosting configuration.
 
 ## Firebase Project
 
-Default project configuration points to:
+The app is configured for:
 
 ```js
 projectId: "edupractice-ab9a2"
 ```
 
-The Firebase web config is public by design. For deployments that need a different project, copy `.env.example` to `.env` and change the `VITE_FIREBASE_*` values.
+## Firebase Setup
 
-## Required Firebase Setup
+1. Enable Authentication > Email/Password in Firebase Console.
+2. Enable Firestore Database.
+3. Publish `firestore.rules`.
+4. Optional: deploy to Firebase Hosting with `firebase deploy`.
 
-1. Open Firebase Console.
-2. Enable Authentication > Sign-in method > Email/Password.
-3. Enable Firestore Database.
-4. Publish the rules in `firestore.rules`.
-5. Optional: enable Firebase Hosting and deploy the app.
-
-## Run Locally
+## Local Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-The app runs on Vite. No local API server is required.
-
 ## First Login
 
-On the login screen, open "تهيئة أول مسؤول للنظام" and create the first official account. After that, officials can add supervisors, students, regions, specializations, educational points, and sections from inside the application.
+Open the login screen and use **تهيئة أول مسؤول للنظام** to create the first official account.
 
-Generated login identifiers use this pattern:
+Login identifiers are generated internally as:
 
-- Official: `official.{employeeId}@edupractice.local`
-- Supervisor: `supervisor.{employeeId}@edupractice.local`
-- Student: `student.{studentId}@edupractice.local`
+- `official.{employeeId}@edupractice.local`
+- `supervisor.{employeeId}@edupractice.local`
+- `student.{studentId}@edupractice.local`
 
-The login form keeps the Arabic workflow simple: users enter only the employee/student number and password.
+Users type only their employee/student number in the Arabic login form.
 
 ## Build
 
@@ -59,7 +51,7 @@ The login form keeps the Arabic workflow simple: users enter only the employee/s
 npm run build
 ```
 
-## Deploy To Firebase Hosting
+## Deploy
 
 ```bash
 firebase login
@@ -67,20 +59,3 @@ firebase use edupractice-ab9a2
 npm run build
 firebase deploy
 ```
-
-## Data Model
-
-Firestore collections:
-
-- `users`
-- `officials`
-- `supervisors`
-- `students`
-- `points`
-- `regions`
-- `specializations`
-- `sections`
-- `auditLogs`
-- `system/main`
-
-`system/main` stores shared settings such as training names, grade caps, permissions, visit grading toggles, allowance rates, and announcements.

@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function profile() { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data; }
+    function isOfficial() { return signedIn() && profile().role == "official"; }
+    function isSupervisor() { return signedIn() && profile().role == "supervisor"; }
+    function isStudent() { return signedIn() && profile().role == "student"; }
+    function recordId() { return profile().recordId; }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isOfficial());
+      allow create: if signedIn() && (request.auth.uid == userId || isOfficial());
+      allow update: if signedIn() && (request.auth.uid == userId || isOfficial());
+      allow delete: if isOfficial();
+    }
+
+    match /officials/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && (isOfficial() || request.resource.data.userId == request.auth.uid);
+      allow update, delete: if isOfficial();
+    }
+
+    match /supervisors/{id} {
+      allow read: if signedIn();
+      allow write: if isOfficial();
+    }
+
+    match /students/{id} {
+      allow read: if isOfficial()
+        || (isSupervisor() && resource.data.supervisorId == recordId())
+        || (isStudent() && id == recordId());
+      allow create, delete: if isOfficial();
+      allow update: if isOfficial()
+        || (isSupervisor() && resource.data.supervisorId == recordId());
+    }
+
+    match /points/{id} { allow read: if signedIn(); allow write: if isOfficial(); }
+    match /regions/{id} { allow read: if signedIn(); allow write: if isOfficial(); }
+    match /specializations/{id} { allow read: if signedIn(); allow write: if isOfficial(); }
+    match /sections/{id} { allow read: if signedIn(); allow write: if isOfficial(); }
+    match /auditLogs/{id} { allow read: if isOfficial(); allow create: if signedIn(); allow update, delete: if isOfficial(); }
+    match /system/{id} { allow read: if signedIn(); allow write: if isOfficial(); }
+  }
+}
