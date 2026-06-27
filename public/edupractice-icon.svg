@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="EduPractice">
+  <defs>
+    <linearGradient id="bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="#f8fafc"/>
+  <path d="M64 10 106 25v34c0 27-16 48-42 59-26-11-42-32-42-59V25L64 10Z" fill="url(#bg)"/>
+  <path d="M39 42c0-4 3-7 7-7h13c3 0 5 1 7 3 2-2 4-3 7-3h13c4 0 7 3 7 7v37c0 3-2 5-5 5H73c-3 0-5 1-7 3-2-2-4-3-7-3H44c-3 0-5-2-5-5V42Z" fill="#ffffff"/>
+  <path d="M46 45h12c3 0 5 2 5 5v27c-2-1-4-2-7-2H46V45Zm36 0H70c-3 0-5 2-5 5v27c2-1 4-2 7-2h10V45Z" fill="#d1fae5"/>
+  <path d="m58 64 7 7 17-20" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M39 42c0-4 3-7 7-7h13c3 0 5 1 7 3 2-2 4-3 7-3h13c4 0 7 3 7 7v37c0 3-2 5-5 5H73c-3 0-5 1-7 3-2-2-4-3-7-3H44c-3 0-5-2-5-5V42Z" fill="none" stroke="#0f172a" stroke-opacity=".14" stroke-width="3"/>
+</svg>
